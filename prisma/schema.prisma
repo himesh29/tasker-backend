@@ -1,0 +1,312 @@
+// FILE: prisma/schema.prisma
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Priority {
+  no_priority @map("no-priority")
+  low
+  medium
+  high
+  urgent
+}
+
+enum TaskStatus {
+  todo
+  doing
+  completed
+  on_hold @map("on-hold")
+}
+
+enum AttachmentType {
+  file
+  link
+}
+
+enum ActivityAction {
+  created
+  updated
+  commented
+  status_changed
+  assigned
+  priority_changed
+  locked
+  unlocked
+  approved
+  rejected
+}
+
+enum ApprovalStatus {
+  not_required
+  pending
+  approved
+  rejected
+}
+
+enum NotificationType {
+  assignment
+  status_change
+  comment
+  mention
+  approval_requested
+  approval_result
+  watcher_activity
+}
+
+model User {
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email         String    @unique
+  name          String
+  avatarUrl     String?   @map("avatar_url")
+  googleId      String?   @unique @map("google_id")
+  isGuest       Boolean   @default(false) @map("is_guest")
+  guestExpiresAt DateTime? @map("guest_expires_at")
+
+  createdById   String?  @map("created_by") @db.Uuid
+  createdBy     User?    @relation("UserCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  createdUsers  User[]   @relation("UserCreatedBy")
+
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  ownedProjects       Project[]         @relation("ProjectOwner")
+  createdProjects     Project[]         @relation("ProjectCreatedBy")
+  projectMemberOf     ProjectMember[]   @relation("ProjectMemberUser")
+  projectMemberAddedBy ProjectMember[]  @relation("ProjectMemberAddedBy")
+
+  reportedTasks       Task[]            @relation("TaskReporter")
+  createdTasks        Task[]            @relation("TaskCreatedBy")
+  approvedTasks       Task[]            @relation("TaskApprovedBy")
+  taskMemberOf        TaskMember[]
+  taskWatcherOf       TaskWatcher[]
+
+  uploadedAttachments Attachment[]
+
+  comments            Comment[]
+  commentReactions    CommentReaction[]
+  commentMentions     CommentMention[]
+
+  activities          Activity[]
+
+  notificationsReceived Notification[] @relation("NotificationRecipient")
+  notificationsCaused   Notification[] @relation("NotificationActor")
+
+  @@map("users")
+}
+
+model Project {
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String
+  priority  Priority  @default(no_priority)
+
+  ownerId   String    @map("owner_id") @db.Uuid
+  // FIX (#4): was `onDelete: Restrict`, which meant deleting any user who
+  // owned at least one project would throw a foreign-key violation. That
+  // silently broke GuestCleanupService's bulk `user.deleteMany(...)` — a
+  // single expired guest owning a project would fail the whole batch, every
+  // 10 minutes, forever. Cascading means deleting a user also removes the
+  // projects they own (and, transitively, those projects' tasks/comments/
+  // attachments/etc. via the existing cascades below).
+  owner     User      @relation("ProjectOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+
+  createdById String? @map("created_by") @db.Uuid
+  createdBy   User?   @relation("ProjectCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+
+  dueDate   DateTime? @map("due_date") @db.Date
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
+
+  members   ProjectMember[]
+  tasks     Task[]
+  notifications Notification[]
+
+  @@map("projects")
+}
+
+model ProjectMember {
+  projectId String   @map("project_id") @db.Uuid
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId    String   @map("user_id") @db.Uuid
+  user      User     @relation("ProjectMemberUser", fields: [userId], references: [id], onDelete: Cascade)
+  addedById String?  @map("added_by") @db.Uuid
+  addedBy   User?    @relation("ProjectMemberAddedBy", fields: [addedById], references: [id], onDelete: SetNull)
+  addedAt   DateTime @default(now()) @map("added_at")
+
+  @@id([projectId, userId])
+  @@map("project_members")
+}
+
+model Task {
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  projectId      String?  @map("project_id") @db.Uuid
+  project        Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  parentTaskId   String?  @map("parent_task_id") @db.Uuid
+  parentTask     Task?    @relation("TaskSubtasks", fields: [parentTaskId], references: [id], onDelete: Cascade)
+  subtasks       Task[]   @relation("TaskSubtasks")
+
+  // Tag is now just a plain text field
+  tag            String?
+
+  title          String
+  summary        String?
+  description    String?
+  status         TaskStatus @default(todo)
+  priority       Priority   @default(no_priority)
+
+  dueDate        DateTime?  @map("due_date") @db.Date
+  dateRangeStart DateTime?  @map("date_range_start") @db.Date
+  dateRangeEnd   DateTime?  @map("date_range_end") @db.Date
+
+  isLocked       Boolean    @default(false) @map("is_locked")
+
+  reporterId     String?  @map("reporter_id") @db.Uuid
+  reporter       User?    @relation("TaskReporter", fields: [reporterId], references: [id], onDelete: SetNull)
+
+  createdById    String?  @map("created_by") @db.Uuid
+  createdBy      User?    @relation("TaskCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+
+  approvalStatus ApprovalStatus @default(not_required) @map("approval_status")
+  approvedById   String?  @map("approved_by") @db.Uuid
+  approvedBy     User?    @relation("TaskApprovedBy", fields: [approvedById], references: [id], onDelete: SetNull)
+  approvedAt     DateTime? @map("approved_at")
+
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @default(now()) @updatedAt @map("updated_at")
+
+  members        TaskMember[]
+  watchers       TaskWatcher[]
+  attachments    Attachment[]
+  comments       Comment[]
+  activities     Activity[]
+  notifications  Notification[]
+
+  @@index([projectId])
+  @@index([parentTaskId])
+  @@index([status])
+  // FIX: TasksService.findAll() filters by `tag` but there was no index
+  // backing it — every tag filter was a full table scan.
+  @@index([tag])
+  @@map("tasks")
+}
+
+model TaskMember {
+  taskId String @map("task_id") @db.Uuid
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  userId String @map("user_id") @db.Uuid
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([taskId, userId])
+  @@map("task_members")
+}
+
+model TaskWatcher {
+  taskId String @map("task_id") @db.Uuid
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  userId String @map("user_id") @db.Uuid
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([taskId, userId])
+  @@map("task_watchers")
+}
+
+model Attachment {
+  id          String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  taskId      String         @map("task_id") @db.Uuid
+  task        Task           @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  type        AttachmentType
+  name        String
+  url         String
+  storageKey  String?        @map("storage_key")
+  mimeType    String?        @map("mime_type")
+  sizeBytes   Int?           @map("size_bytes")
+  uploadedById String?       @map("uploaded_by") @db.Uuid
+  uploadedBy  User?          @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
+  createdAt   DateTime       @default(now()) @map("created_at")
+
+  @@index([taskId])
+  @@map("attachments")
+}
+
+model Comment {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  taskId    String   @map("task_id") @db.Uuid
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  authorId  String?  @map("author_id") @db.Uuid
+  author    User?    @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  text      String
+  pinnedAt  DateTime? @map("pinned_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  reactions CommentReaction[]
+  mentions  CommentMention[]
+  notifications Notification[]
+
+  @@index([taskId])
+  @@map("comments")
+}
+
+model CommentReaction {
+  commentId String   @map("comment_id") @db.Uuid
+  comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  userId    String   @map("user_id") @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  emoji     String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@id([commentId, userId, emoji])
+  @@map("comment_reactions")
+}
+
+model CommentMention {
+  commentId String  @map("comment_id") @db.Uuid
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  userId    String  @map("user_id") @db.Uuid
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([commentId, userId])
+  @@map("comment_mentions")
+}
+
+model Activity {
+  id        String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  taskId    String         @map("task_id") @db.Uuid
+  task      Task           @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  actorId   String?        @map("actor_id") @db.Uuid
+  actor     User?          @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  action    ActivityAction
+  target    String?
+  createdAt DateTime       @default(now()) @map("created_at")
+
+  @@index([taskId, createdAt(sort: Desc)])
+  @@map("activities")
+}
+
+model Notification {
+  id          String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  recipientId String           @map("recipient_id") @db.Uuid
+  recipient   User             @relation("NotificationRecipient", fields: [recipientId], references: [id], onDelete: Cascade)
+  actorId     String?          @map("actor_id") @db.Uuid
+  actor       User?            @relation("NotificationActor", fields: [actorId], references: [id], onDelete: SetNull)
+  type        NotificationType
+  taskId      String?          @map("task_id") @db.Uuid
+  task        Task?            @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  projectId   String?          @map("project_id") @db.Uuid
+  project     Project?         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  commentId   String?          @map("comment_id") @db.Uuid
+  comment     Comment?         @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  message     String
+  isRead      Boolean          @default(false) @map("is_read")
+  createdAt   DateTime         @default(now()) @map("created_at")
+
+  @@index([recipientId, isRead, createdAt(sort: Desc)])
+  @@map("notifications")
+}
+
