@@ -12,11 +12,6 @@ async function bootstrap() {
 
   // Needed to read the refresh_token httpOnly cookie in AuthController/JwtRefreshStrategy.
   app.use(cookieParser());
-
-  // Serves uploaded attachment files at http://.../uploads/<filename>
-  // (see AttachmentsController — this is what attachment.url points to).
-  app.useStaticAssets(join(process.cwd(), 'uploads'), { prefix: '/uploads/' });
-
   // Auto-validates and strips unknown fields from incoming DTOs
   // (GoogleLoginDto, etc.)
   app.useGlobalPipes(

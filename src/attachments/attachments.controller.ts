@@ -1,3 +1,4 @@
+// FILE: src/attachments/attachments.controller.ts
 import {
   BadRequestException,
   Body,
@@ -12,31 +13,19 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname, join } from 'path';
-import { randomUUID } from 'crypto';
+import { memoryStorage } from 'multer';
+import { extname } from 'path';
 import { AttachmentsService } from './attachments.service';
 import { CreateLinkAttachmentDto } from './dto/create-link-attachment.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import type { JwtPayload } from '../auth/auth.service';
 
-const UPLOADS_DIR = join(process.cwd(), 'uploads');
 const MAX_FILE_SIZE_BYTES = 50 * 1024 * 1024; // 50MB
 
-// FIX (#6): the upload endpoint previously accepted any file type — with
-// files served back out statically at /uploads/<name>, that allowed things
-// like an uploaded .html/.svg with an embedded script. Restrict task
-// attachments to common document types (Word, Excel, PowerPoint, PDF) plus
-// a small set of everyday attachment types (images, plain text/CSV, zip).
 const ALLOWED_EXTENSIONS = new Set([
-  '.pdf',
-  '.doc', '.docx',
-  '.xls', '.xlsx',
-  '.ppt', '.pptx',
-  '.txt', '.csv',
-  '.png', '.jpg', '.jpeg', '.gif', '.webp',
-  '.zip',
+  '.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx',
+  '.txt', '.csv', '.png', '.jpg', '.jpeg', '.gif', '.webp', '.zip',
 ]);
 
 const ALLOWED_MIME_TYPES = new Set([
@@ -83,12 +72,7 @@ export class AttachmentsController {
   @Post('file')
   @UseInterceptors(
     FileInterceptor('file', {
-      storage: diskStorage({
-        destination: UPLOADS_DIR,
-        filename: (_req, file, cb) => {
-          cb(null, `${randomUUID()}${extname(file.originalname)}`);
-        },
-      }),
+      storage: memoryStorage(),
       fileFilter: attachmentFileFilter,
       limits: { fileSize: MAX_FILE_SIZE_BYTES },
     }),
@@ -98,7 +82,7 @@ export class AttachmentsController {
     @CurrentUser() actor: JwtPayload,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    if (!file) throw new BadRequestException('No file provided, or the file type is not allowed (field name must be "file")');
+    if (!file) throw new BadRequestException('No file provided, or the file type is not allowed');
     return this.attachmentsService.createFile(taskId, actor, file);
   }
 
@@ -112,14 +96,10 @@ export class AttachmentsController {
   }
 
   @Get()
-  findAll(@Param('taskId', ParseUUIDPipe) taskId: string,   @CurrentUser() actor: JwtPayload,
-) {
-    return this.attachmentsService.findAllForTask(taskId,actor);
+  findAll(@Param('taskId', ParseUUIDPipe) taskId: string, @CurrentUser() actor: JwtPayload) {
+    return this.attachmentsService.findAllForTask(taskId, actor);
   }
 
-  // FIX (#15): taskId (already in the route) is now passed through
-  // so the service can check whether the actor manages the task's
-  // project, not just uploader/admin.
   @Delete(':id')
   remove(
     @Param('taskId', ParseUUIDPipe) taskId: string,
@@ -129,5 +109,3 @@ export class AttachmentsController {
     return this.attachmentsService.remove(taskId, id, actor);
   }
 }
-
-

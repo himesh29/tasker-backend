@@ -1,24 +1,20 @@
-import {
-  ForbiddenException,
-  Injectable,
-  Logger,
-  NotFoundException,
-} from '@nestjs/common';
-import { unlink } from 'fs/promises';
-import { join } from 'path';
+// FILE: src/projects/projects.service.ts
+import { ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { StorageService } from '../common/storage.service';
 import { JwtPayload } from '../auth/auth.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { ProjectQueryDto } from './dto/project-query.dto';
 
-const UPLOADS_DIR = join(process.cwd(), 'uploads');
-
 @Injectable()
 export class ProjectsService {
   private readonly logger = new Logger(ProjectsService.name);
 
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly storage: StorageService
+  ) {}
 
   async create(creator: JwtPayload, dto: CreateProjectDto) {
     return this.prisma.project.create({
@@ -42,10 +38,7 @@ export class ProjectsService {
     const skip = (page - 1) * limit;
 
     const permissionFilter = {
-      OR: [
-        { ownerId: actor.sub },
-        { members: { some: { userId: actor.sub } } },
-      ],
+      OR: [{ ownerId: actor.sub }, { members: { some: { userId: actor.sub } } }],
     };
 
     const where = { AND: [permissionFilter] };
@@ -64,10 +57,7 @@ export class ProjectsService {
       this.prisma.project.count({ where }),
     ]);
 
-    return {
-      items,
-      meta: { total, page, limit, totalPages: Math.ceil(total / limit) },
-    };
+    return { items, meta: { total, page, limit, totalPages: Math.ceil(total / limit) } };
   }
 
   async findOne(actor: JwtPayload, id: string) {
@@ -122,9 +112,7 @@ export class ProjectsService {
 
     for (const att of attachments) {
       if (att.storageKey) {
-        await unlink(join(UPLOADS_DIR, att.storageKey)).catch(() =>
-          this.logger.warn(`Failed to clean up orphaned file: ${att.storageKey}`),
-        );
+        await this.storage.deleteFile(att.storageKey);
       }
     }
 
@@ -157,7 +145,6 @@ export class ProjectsService {
     });
 
     if (!project) throw new NotFoundException('Project not found');
-
     if (project.ownerId === userId) return;
 
     const member = await this.prisma.projectMember.findUnique({
