@@ -64,6 +64,7 @@ model User {
   email         String    @unique
   name          String
   avatarUrl     String?   @map("avatar_url")
+  avatarStorageKey String?   @map("avatar_storage_key")
   googleId      String?   @unique @map("google_id")
   isGuest       Boolean   @default(false) @map("is_guest")
   guestExpiresAt DateTime? @map("guest_expires_at")

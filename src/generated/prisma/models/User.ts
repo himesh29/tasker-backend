@@ -29,6 +29,7 @@ export type UserMinAggregateOutputType = {
   email: string | null
   name: string | null
   avatarUrl: string | null
+  avatarStorageKey: string | null
   googleId: string | null
   isGuest: boolean | null
   guestExpiresAt: Date | null
@@ -41,6 +42,7 @@ export type UserMaxAggregateOutputType = {
   email: string | null
   name: string | null
   avatarUrl: string | null
+  avatarStorageKey: string | null
   googleId: string | null
   isGuest: boolean | null
   guestExpiresAt: Date | null
@@ -53,6 +55,7 @@ export type UserCountAggregateOutputType = {
   email: number
   name: number
   avatarUrl: number
+  avatarStorageKey: number
   googleId: number
   isGuest: number
   guestExpiresAt: number
@@ -67,6 +70,7 @@ export type UserMinAggregateInputType = {
   email?: true
   name?: true
   avatarUrl?: true
+  avatarStorageKey?: true
   googleId?: true
   isGuest?: true
   guestExpiresAt?: true
@@ -79,6 +83,7 @@ export type UserMaxAggregateInputType = {
   email?: true
   name?: true
   avatarUrl?: true
+  avatarStorageKey?: true
   googleId?: true
   isGuest?: true
   guestExpiresAt?: true
@@ -91,6 +96,7 @@ export type UserCountAggregateInputType = {
   email?: true
   name?: true
   avatarUrl?: true
+  avatarStorageKey?: true
   googleId?: true
   isGuest?: true
   guestExpiresAt?: true
@@ -176,6 +182,7 @@ export type UserGroupByOutputType = {
   email: string
   name: string
   avatarUrl: string | null
+  avatarStorageKey: string | null
   googleId: string | null
   isGuest: boolean
   guestExpiresAt: Date | null
@@ -209,6 +216,7 @@ export type UserWhereInput = {
   email?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringFilter<"User"> | string
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  avatarStorageKey?: Prisma.StringNullableFilter<"User"> | string | null
   googleId?: Prisma.StringNullableFilter<"User"> | string | null
   isGuest?: Prisma.BoolFilter<"User"> | boolean
   guestExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -239,6 +247,7 @@ export type UserOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   name?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  avatarStorageKey?: Prisma.SortOrderInput | Prisma.SortOrder
   googleId?: Prisma.SortOrderInput | Prisma.SortOrder
   isGuest?: Prisma.SortOrder
   guestExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -273,6 +282,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   name?: Prisma.StringFilter<"User"> | string
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  avatarStorageKey?: Prisma.StringNullableFilter<"User"> | string | null
   isGuest?: Prisma.BoolFilter<"User"> | boolean
   guestExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdById?: Prisma.UuidNullableFilter<"User"> | string | null
@@ -302,6 +312,7 @@ export type UserOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   name?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  avatarStorageKey?: Prisma.SortOrderInput | Prisma.SortOrder
   googleId?: Prisma.SortOrderInput | Prisma.SortOrder
   isGuest?: Prisma.SortOrder
   guestExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -320,6 +331,7 @@ export type UserScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   name?: Prisma.StringWithAggregatesFilter<"User"> | string
   avatarUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  avatarStorageKey?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   googleId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isGuest?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   guestExpiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -332,6 +344,7 @@ export type UserCreateInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -361,6 +374,7 @@ export type UserUncheckedCreateInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -390,6 +404,7 @@ export type UserUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -419,6 +434,7 @@ export type UserUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -448,6 +464,7 @@ export type UserCreateManyInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -460,6 +477,7 @@ export type UserUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -471,6 +489,7 @@ export type UserUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -498,6 +517,7 @@ export type UserCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   name?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrder
+  avatarStorageKey?: Prisma.SortOrder
   googleId?: Prisma.SortOrder
   isGuest?: Prisma.SortOrder
   guestExpiresAt?: Prisma.SortOrder
@@ -510,6 +530,7 @@ export type UserMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   name?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrder
+  avatarStorageKey?: Prisma.SortOrder
   googleId?: Prisma.SortOrder
   isGuest?: Prisma.SortOrder
   guestExpiresAt?: Prisma.SortOrder
@@ -522,6 +543,7 @@ export type UserMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   name?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrder
+  avatarStorageKey?: Prisma.SortOrder
   googleId?: Prisma.SortOrder
   isGuest?: Prisma.SortOrder
   guestExpiresAt?: Prisma.SortOrder
@@ -859,6 +881,7 @@ export type UserCreateWithoutCreatedUsersInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -887,6 +910,7 @@ export type UserUncheckedCreateWithoutCreatedUsersInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -920,6 +944,7 @@ export type UserCreateWithoutCreatedByInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -948,6 +973,7 @@ export type UserUncheckedCreateWithoutCreatedByInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -997,6 +1023,7 @@ export type UserUpdateWithoutCreatedUsersInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1025,6 +1052,7 @@ export type UserUncheckedUpdateWithoutCreatedUsersInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1072,6 +1100,7 @@ export type UserScalarWhereInput = {
   email?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringFilter<"User"> | string
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  avatarStorageKey?: Prisma.StringNullableFilter<"User"> | string | null
   googleId?: Prisma.StringNullableFilter<"User"> | string | null
   isGuest?: Prisma.BoolFilter<"User"> | boolean
   guestExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -1084,6 +1113,7 @@ export type UserCreateWithoutOwnedProjectsInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -1112,6 +1142,7 @@ export type UserUncheckedCreateWithoutOwnedProjectsInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -1145,6 +1176,7 @@ export type UserCreateWithoutCreatedProjectsInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -1173,6 +1205,7 @@ export type UserUncheckedCreateWithoutCreatedProjectsInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -1217,6 +1250,7 @@ export type UserUpdateWithoutOwnedProjectsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1245,6 +1279,7 @@ export type UserUncheckedUpdateWithoutOwnedProjectsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1284,6 +1319,7 @@ export type UserUpdateWithoutCreatedProjectsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1312,6 +1348,7 @@ export type UserUncheckedUpdateWithoutCreatedProjectsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1340,6 +1377,7 @@ export type UserCreateWithoutProjectMemberOfInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -1368,6 +1406,7 @@ export type UserUncheckedCreateWithoutProjectMemberOfInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -1401,6 +1440,7 @@ export type UserCreateWithoutProjectMemberAddedByInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -1429,6 +1469,7 @@ export type UserUncheckedCreateWithoutProjectMemberAddedByInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -1473,6 +1514,7 @@ export type UserUpdateWithoutProjectMemberOfInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1501,6 +1543,7 @@ export type UserUncheckedUpdateWithoutProjectMemberOfInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1540,6 +1583,7 @@ export type UserUpdateWithoutProjectMemberAddedByInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1568,6 +1612,7 @@ export type UserUncheckedUpdateWithoutProjectMemberAddedByInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1596,6 +1641,7 @@ export type UserCreateWithoutReportedTasksInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -1624,6 +1670,7 @@ export type UserUncheckedCreateWithoutReportedTasksInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -1657,6 +1704,7 @@ export type UserCreateWithoutCreatedTasksInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -1685,6 +1733,7 @@ export type UserUncheckedCreateWithoutCreatedTasksInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -1718,6 +1767,7 @@ export type UserCreateWithoutApprovedTasksInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -1746,6 +1796,7 @@ export type UserUncheckedCreateWithoutApprovedTasksInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -1790,6 +1841,7 @@ export type UserUpdateWithoutReportedTasksInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1818,6 +1870,7 @@ export type UserUncheckedUpdateWithoutReportedTasksInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1857,6 +1910,7 @@ export type UserUpdateWithoutCreatedTasksInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1885,6 +1939,7 @@ export type UserUncheckedUpdateWithoutCreatedTasksInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1924,6 +1979,7 @@ export type UserUpdateWithoutApprovedTasksInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1952,6 +2008,7 @@ export type UserUncheckedUpdateWithoutApprovedTasksInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1980,6 +2037,7 @@ export type UserCreateWithoutTaskMemberOfInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -2008,6 +2066,7 @@ export type UserUncheckedCreateWithoutTaskMemberOfInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -2052,6 +2111,7 @@ export type UserUpdateWithoutTaskMemberOfInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2080,6 +2140,7 @@ export type UserUncheckedUpdateWithoutTaskMemberOfInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2108,6 +2169,7 @@ export type UserCreateWithoutTaskWatcherOfInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -2136,6 +2198,7 @@ export type UserUncheckedCreateWithoutTaskWatcherOfInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -2180,6 +2243,7 @@ export type UserUpdateWithoutTaskWatcherOfInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2208,6 +2272,7 @@ export type UserUncheckedUpdateWithoutTaskWatcherOfInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2236,6 +2301,7 @@ export type UserCreateWithoutUploadedAttachmentsInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -2264,6 +2330,7 @@ export type UserUncheckedCreateWithoutUploadedAttachmentsInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -2308,6 +2375,7 @@ export type UserUpdateWithoutUploadedAttachmentsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2336,6 +2404,7 @@ export type UserUncheckedUpdateWithoutUploadedAttachmentsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2364,6 +2433,7 @@ export type UserCreateWithoutCommentsInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -2392,6 +2462,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -2436,6 +2507,7 @@ export type UserUpdateWithoutCommentsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2464,6 +2536,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2492,6 +2565,7 @@ export type UserCreateWithoutCommentReactionsInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -2520,6 +2594,7 @@ export type UserUncheckedCreateWithoutCommentReactionsInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -2564,6 +2639,7 @@ export type UserUpdateWithoutCommentReactionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2592,6 +2668,7 @@ export type UserUncheckedUpdateWithoutCommentReactionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2620,6 +2697,7 @@ export type UserCreateWithoutCommentMentionsInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -2648,6 +2726,7 @@ export type UserUncheckedCreateWithoutCommentMentionsInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -2692,6 +2771,7 @@ export type UserUpdateWithoutCommentMentionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2720,6 +2800,7 @@ export type UserUncheckedUpdateWithoutCommentMentionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2748,6 +2829,7 @@ export type UserCreateWithoutActivitiesInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -2776,6 +2858,7 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -2820,6 +2903,7 @@ export type UserUpdateWithoutActivitiesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2848,6 +2932,7 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2876,6 +2961,7 @@ export type UserCreateWithoutNotificationsReceivedInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -2904,6 +2990,7 @@ export type UserUncheckedCreateWithoutNotificationsReceivedInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -2937,6 +3024,7 @@ export type UserCreateWithoutNotificationsCausedInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -2965,6 +3053,7 @@ export type UserUncheckedCreateWithoutNotificationsCausedInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -3009,6 +3098,7 @@ export type UserUpdateWithoutNotificationsReceivedInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3037,6 +3127,7 @@ export type UserUncheckedUpdateWithoutNotificationsReceivedInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3076,6 +3167,7 @@ export type UserUpdateWithoutNotificationsCausedInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3104,6 +3196,7 @@ export type UserUncheckedUpdateWithoutNotificationsCausedInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3132,6 +3225,7 @@ export type UserCreateManyCreatedByInput = {
   email: string
   name: string
   avatarUrl?: string | null
+  avatarStorageKey?: string | null
   googleId?: string | null
   isGuest?: boolean
   guestExpiresAt?: Date | string | null
@@ -3143,6 +3237,7 @@ export type UserUpdateWithoutCreatedByInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3171,6 +3266,7 @@ export type UserUncheckedUpdateWithoutCreatedByInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3199,6 +3295,7 @@ export type UserUncheckedUpdateManyWithoutCreatedByInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarStorageKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   guestExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3385,6 +3482,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   email?: boolean
   name?: boolean
   avatarUrl?: boolean
+  avatarStorageKey?: boolean
   googleId?: boolean
   isGuest?: boolean
   guestExpiresAt?: boolean
@@ -3416,6 +3514,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   name?: boolean
   avatarUrl?: boolean
+  avatarStorageKey?: boolean
   googleId?: boolean
   isGuest?: boolean
   guestExpiresAt?: boolean
@@ -3429,6 +3528,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   name?: boolean
   avatarUrl?: boolean
+  avatarStorageKey?: boolean
   googleId?: boolean
   isGuest?: boolean
   guestExpiresAt?: boolean
@@ -3442,6 +3542,7 @@ export type UserSelectScalar = {
   email?: boolean
   name?: boolean
   avatarUrl?: boolean
+  avatarStorageKey?: boolean
   googleId?: boolean
   isGuest?: boolean
   guestExpiresAt?: boolean
@@ -3449,7 +3550,7 @@ export type UserSelectScalar = {
   createdAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "avatarUrl" | "googleId" | "isGuest" | "guestExpiresAt" | "createdById" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "avatarUrl" | "avatarStorageKey" | "googleId" | "isGuest" | "guestExpiresAt" | "createdById" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   createdBy?: boolean | Prisma.User$createdByArgs<ExtArgs>
   createdUsers?: boolean | Prisma.User$createdUsersArgs<ExtArgs>
@@ -3505,6 +3606,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     email: string
     name: string
     avatarUrl: string | null
+    avatarStorageKey: string | null
     googleId: string | null
     isGuest: boolean
     guestExpiresAt: Date | null
@@ -3955,6 +4057,7 @@ export interface UserFieldRefs {
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly name: Prisma.FieldRef<"User", 'String'>
   readonly avatarUrl: Prisma.FieldRef<"User", 'String'>
+  readonly avatarStorageKey: Prisma.FieldRef<"User", 'String'>
   readonly googleId: Prisma.FieldRef<"User", 'String'>
   readonly isGuest: Prisma.FieldRef<"User", 'Boolean'>
   readonly guestExpiresAt: Prisma.FieldRef<"User", 'DateTime'>

@@ -72,21 +72,21 @@ export class UsersService {
     const target = await this.prisma.user.findUnique({ where: { id } });
     if (!target) throw new NotFoundException('User not found');
 
-    const r2BaseUrl = process.env.R2_PUBLIC_URL!;
-    const previousStorageKey = target.avatarUrl?.startsWith(r2BaseUrl) 
-      ? target.avatarUrl.replace(`${r2BaseUrl}/`, '') 
-      : null;
+    const previousStorageKey = target.avatarStorageKey;
 
     const { url, storageKey } = await this.storage.uploadFile(file, 'avatars');
 
     const updated = await this.prisma.user.update({
       where: { id },
-      data: { avatarUrl: url },
+      data: {
+        avatarUrl: url,
+        avatarStorageKey: storageKey,
+      },
     });
 
-    if (previousStorageKey) {
-      await this.storage.deleteFile(previousStorageKey);
-    }
+if (previousStorageKey) {
+  await this.storage.deleteFile(previousStorageKey);
+}
 
     return updated;
   }
