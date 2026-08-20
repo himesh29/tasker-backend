@@ -1,4 +1,3 @@
-// FILE: src/users/users.service.ts
 import { ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { StorageService } from '../common/storage.service';
@@ -84,9 +83,9 @@ export class UsersService {
       },
     });
 
-if (previousStorageKey) {
-  await this.storage.deleteFile(previousStorageKey);
-}
+    if (previousStorageKey) {
+      await this.storage.deleteFile(previousStorageKey);
+    }
 
     return updated;
   }
@@ -149,6 +148,10 @@ if (previousStorageKey) {
 
     for (const att of orphanedProjectAttachments) {
       if (att.storageKey) await this.storage.deleteFile(att.storageKey);
+    }
+
+    if (target.avatarStorageKey) {
+      await this.storage.deleteFile(target.avatarStorageKey);
     }
 
     return { id, deleted: true };
