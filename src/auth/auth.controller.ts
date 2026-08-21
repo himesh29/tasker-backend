@@ -25,25 +25,9 @@ import type {
 
 const REFRESH_COOKIE_OPTIONS = {
   httpOnly: true,
-
-  /*
-   * Required for cross-site cookies in production.
-   */
   secure: true,
-
-  /*
-   * Frontend and backend are on different sites.
-   */
   sameSite: "none" as const,
-
-  /*
-   * Only send the cookie to the refresh endpoint.
-   */
   path: "/auth/refresh",
-
-  /*
-   * Seven days.
-   */
   maxAge: 7 * 24 * 60 * 60 * 1000,
 };
 
@@ -75,6 +59,7 @@ export class AuthController {
 
     return {
       accessToken,
+      refreshToken,   // 👈 ADD THIS
       user,
     };
   }
@@ -98,6 +83,7 @@ export class AuthController {
 
     return {
       accessToken,
+      refreshToken,   
       user,
     };
   }
@@ -125,6 +111,7 @@ export class AuthController {
 
     return {
       accessToken,
+      refreshToken,   
       user: payload,
     };
   }
